@@ -1,0 +1,213 @@
+[0;32m[*][0m [0;35m<b77d66c0>[0m Server 0.0.0.0 listening on port 8080
+{REQ #0} method: CONNECT ; host: ('199.47.218.158', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32873 for establishing SSL tunnel
+{REQ #2} method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/request_token ; proto: HTTP/1.1 ; len(body): 168
+  Content-Length: 168
+  Accept-Encoding: identity
+  User-Agent: OfficialDropboxPythonSDK/1.4
+  Host: api.dropbox.com
+  Content-type: application/x-www-form-urlencoded
+  Authorization: OAuth realm="", oauth_nonce="28356426", oauth_timestamp="1337941763", oauth_consumer_key="92hbateam2dxxbk", oauth_signature_method="PLAINTEXT", oauth_version="1.0", oauth_signature="7315tog2zjsch4l%26"
+
+Body : oauth_nonce=28356426&oauth_timestamp=1337941763&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_signature=7315tog2zjsch4l%26
+
+
+{RES #3} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 62
+  Transfer-Encoding: chunked
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  cache-control: no-cache
+  Date: Fri, 25 May 2012 10:29:26 GMT
+  x-frame-options: SAMEORIGIN
+  Content-Type: application/x-www-form-urlencoded
+
+Body : oauth_token_secret=8uqp21zswnsdpc6&oauth_token=5h3btpags2znxgm
+
+
+{REQ #4} method: CONNECT ; host: ('199.47.219.158', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32883 for establishing SSL tunnel
+{REQ #6} method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/access_token ; proto: HTTP/1.1 ; len(body): 211
+  Content-Length: 211
+  Accept-Encoding: identity
+  User-Agent: OfficialDropboxPythonSDK/1.4
+  Host: api.dropbox.com
+  Content-type: application/x-www-form-urlencoded
+  Authorization: OAuth realm="", oauth_nonce="19226691", oauth_timestamp="1337941778", oauth_consumer_key="92hbateam2dxxbk", oauth_signature_method="PLAINTEXT", oauth_version="1.0", oauth_token="5h3btpags2znxgm", oauth_signature="7315tog2zjsch4l%268uqp21zswnsdpc6"
+
+Body : oauth_nonce=19226691&oauth_timestamp=1337941778&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_token=5h3btpags2znxgm&oauth_signature=7315tog2zjsch4l%268uqp21zswnsdpc6
+
+
+{RES #7} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 74
+  Transfer-Encoding: chunked
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  cache-control: no-cache
+  Date: Fri, 25 May 2012 10:29:40 GMT
+  x-frame-options: SAMEORIGIN
+  Content-Type: application/x-www-form-urlencoded
+
+Body : oauth_token_secret=ms6kmiz9qxztu0f&oauth_token=le36240x9fw1ib2&uid=8954990
+
+
+{REQ #8} method: CONNECT ; host: ('199.47.218.158', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32887 for establishing SSL tunnel
+{REQ #10} method: GET ; host: ('api.dropbox.com', 443) ; path: /1/account/info?oauth_version=1.0&oauth_token=le36240x9fw1ib2&oauth_nonce=65795651&oauth_timestamp=1337941784&oauth_signature=7315tog2zjsch4l%26ms6kmiz9qxztu0f&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT ; proto: HTTP/1.1 ; len(body): 0
+  Host: api.dropbox.com
+  Accept-Encoding: identity
+  Authorization: OAuth realm="", oauth_nonce="65795651", oauth_timestamp="1337941784", oauth_consumer_key="92hbateam2dxxbk", oauth_signature_method="PLAINTEXT", oauth_version="1.0", oauth_token="le36240x9fw1ib2", oauth_signature="7315tog2zjsch4l%26ms6kmiz9qxztu0f"
+  User-Agent: OfficialDropboxPythonSDK/1.4
+
+Body : 
+
+
+{RES #11} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 238
+  Transfer-Encoding: chunked
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  cache-control: no-cache
+  Date: Fri, 25 May 2012 10:29:45 GMT
+  x-frame-options: SAMEORIGIN
+  Content-Type: text/javascript
+
+Body : {"referral_link": "https://www.dropbox.com/referrals/NTg5NTQ5OTA5", "display_name": "lorenzo rande", "uid": 8954990, "country": "FR", "quota_info": {"shared": 0, "quota": 2684354560, "normal": 244355857}, "email": "lolorenzo19@gmail.com"}
+
+
+{REQ #12} method: CONNECT ; host: ('199.47.219.158', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32889 for establishing SSL tunnel
+{REQ #14} method: GET ; host: ('api.dropbox.com', 443) ; path: /1/metadata/dropbox?oauth_nonce=76971785&oauth_timestamp=1337941786&file_limit=10000&list=true&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&include_deleted=False&oauth_version=1.0&oauth_token=le36240x9fw1ib2&oauth_signature=7315tog2zjsch4l%26ms6kmiz9qxztu0f ; proto: HTTP/1.1 ; len(body): 0
+  Host: api.dropbox.com
+  Accept-Encoding: identity
+  Authorization: OAuth realm="", oauth_nonce="76971785", oauth_timestamp="1337941786", oauth_signature_method="PLAINTEXT", oauth_consumer_key="92hbateam2dxxbk", oauth_version="1.0", oauth_token="le36240x9fw1ib2", oauth_signature="7315tog2zjsch4l%26ms6kmiz9qxztu0f"
+  User-Agent: OfficialDropboxPythonSDK/1.4
+
+Body : 
+
+
+{RES #15} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 3245
+  Transfer-Encoding: chunked
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  cache-control: no-cache
+  Date: Fri, 25 May 2012 10:29:48 GMT
+  x-frame-options: SAMEORIGIN
+  Content-Type: text/javascript
+
+Body : {"hash": "485a3841f3e091c34b46f9601efea1fc", "thumb_exists": false, "bytes": 0, "path": "/", "is_dir": true, "size": "0 bytes", "root": "dropbox", "contents": [{"revision": 3184, "rev": "c7000d55a7d", "thumb_exists": false, "bytes": 619372, "modified": "Fri, 04 Nov 2011 16:45:44 +0000", "client_mtime": "Fri, 04 Nov 2011 15:50:37 +0000", "path": "/Darkly Dreaming Dexter - Jeff Lindsay-viny.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "604.9 KB"}, {"revision": 479, "rev": "1df00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Wed, 13 Oct 2010 06:14:17 +0000", "path": "/Divers", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}, {"revision": 3370, "rev": "d2a00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Mon, 21 May 2012 14:19:53 +0000", "path": "/dropbox-1.4.1", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}, {"revision": 3084, "rev": "c0c00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Mon, 12 Sep 2011 18:53:38 +0000", "path": "/Ecole", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}, {"revision": 9, "rev": "900d55a7d", "thumb_exists": false, "bytes": 127748, "modified": "Sun, 11 Jul 2010 11:54:49 +0000", "client_mtime": "Sun, 11 Jul 2010 11:54:50 +0000", "path": "/Getting Started.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "124.8 KB"}, {"revision": 3079, "rev": "c0700d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Tue, 06 Sep 2011 10:19:16 +0000", "path": "/Japon", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}, {"revision": 3070, "rev": "bfe00d55a7d", "thumb_exists": false, "bytes": 89538, "modified": "Thu, 26 May 2011 17:26:24 +0000", "client_mtime": "Sat, 26 Feb 2011 21:12:35 +0000", "path": "/Opodo.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "87.4 KB"}, {"revision": 3067, "rev": "bfb00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Thu, 26 May 2011 17:26:24 +0000", "path": "/Photos", "is_dir": true, "icon": "folder_photos", "root": "dropbox", "size": "0 bytes"}, {"revision": 505, "rev": "1f900d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Wed, 13 Oct 2010 06:15:27 +0000", "path": "/Programmation", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}, {"revision": 3068, "rev": "bfc00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Thu, 26 May 2011 17:26:24 +0000", "path": "/Public", "is_dir": true, "icon": "folder_public", "root": "dropbox", "size": "0 bytes"}, {"revision": 3118, "rev": "c2e00d55a7d", "thumb_exists": false, "bytes": 15673849, "modified": "Sat, 22 Oct 2011 00:15:40 +0000", "client_mtime": "Wed, 19 Oct 2011 14:32:16 +0000", "path": "/Radox-Weightless-256.mp3", "is_dir": false, "icon": "page_white_sound", "root": "dropbox", "mime_type": "audio/mpeg", "size": "14.9 MB"}, {"revision": 11, "rev": "b00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Sun, 11 Jul 2010 11:55:31 +0000", "path": "/TIPE", "is_dir": true, "icon": "folder", "root": "dropbox", "size": "0 bytes"}], "icon": "folder"}
+
+
+{REQ #16} method: CONNECT ; host: ('184.73.245.80', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32925 for establishing SSL tunnel
+{REQ #18} method: GET ; host: ('api-content.dropbox.com', 443) ; path: /1/thumbnails/dropbox/Darkly%20Dreaming%20Dexter%20-%20Jeff%20Lindsay-viny.pdf?oauth_nonce=35649436&format=PNG&oauth_consumer_key=92hbateam2dxxbk&oauth_timestamp=1337941870&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_token=le36240x9fw1ib2&oauth_signature=7315tog2zjsch4l%26ms6kmiz9qxztu0f&size=medium ; proto: HTTP/1.1 ; len(body): 0
+  Host: api-content.dropbox.com
+  Accept-Encoding: identity
+  Authorization: OAuth realm="", oauth_version="1.0", oauth_token="le36240x9fw1ib2", oauth_nonce="35649436", oauth_signature="7315tog2zjsch4l%26ms6kmiz9qxztu0f", oauth_consumer_key="92hbateam2dxxbk", oauth_timestamp="1337941870", oauth_signature_method="PLAINTEXT"
+  User-Agent: OfficialDropboxPythonSDK/1.4
+
+Body : 
+
+
+{RES #19} code: 404 (Not Found) ; proto: HTTP/1.1 ; len(body): 102
+  Date: Fri, 25 May 2012 10:31:17 GMT
+  Transfer-Encoding: chunked
+  Connection: keep-alive
+  Content-Type: application/json
+  Server: nginx/1.0.14
+
+Body : {"error": "No thumbnail available for the file type 'Darkly Dreaming Dexter - Jeff Lindsay-viny.pdf'"}
+
+
+{REQ #20} method: CONNECT ; host: ('199.47.219.158', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32935 for establishing SSL tunnel
+{REQ #22} method: GET ; host: ('api.dropbox.com', 443) ; path: /1/metadata/dropbox/Divers?oauth_nonce=49540401&oauth_timestamp=1337941891&file_limit=10000&list=true&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&include_deleted=False&oauth_version=1.0&oauth_token=le36240x9fw1ib2&oauth_signature=7315tog2zjsch4l%26ms6kmiz9qxztu0f ; proto: HTTP/1.1 ; len(body): 0
+  Host: api.dropbox.com
+  Accept-Encoding: identity
+  Authorization: OAuth realm="", oauth_nonce="49540401", oauth_timestamp="1337941891", oauth_signature_method="PLAINTEXT", oauth_consumer_key="92hbateam2dxxbk", oauth_version="1.0", oauth_token="le36240x9fw1ib2", oauth_signature="7315tog2zjsch4l%26ms6kmiz9qxztu0f"
+  User-Agent: OfficialDropboxPythonSDK/1.4
+
+Body : 
+
+
+{RES #23} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 1907
+  Transfer-Encoding: chunked
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  cache-control: no-cache
+  Date: Fri, 25 May 2012 10:31:33 GMT
+  x-frame-options: SAMEORIGIN
+  Content-Type: text/javascript
+
+Body : {"hash": "4575c4c04dd5907f03498f9b80fcba6b", "revision": 479, "rev": "1df00d55a7d", "thumb_exists": false, "bytes": 0, "modified": "Wed, 13 Oct 2010 06:14:17 +0000", "path": "/Divers", "is_dir": true, "icon": "folder", "root": "dropbox", "contents": [{"revision": 501, "rev": "1f500d55a7d", "thumb_exists": false, "bytes": 333646, "modified": "Wed, 13 Oct 2010 06:14:41 +0000", "client_mtime": "Mon, 09 Aug 2010 13:42:50 +0000", "path": "/Divers/al0.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "325.8 KB"}, {"revision": 3182, "rev": "c6e00d55a7d", "thumb_exists": false, "bytes": 627, "modified": "Wed, 26 Oct 2011 14:10:24 +0000", "client_mtime": "Thu, 20 Oct 2011 14:18:15 +0000", "path": "/Divers/CV.txt", "is_dir": false, "icon": "page_white_text", "root": "dropbox", "mime_type": "text/plain", "size": "627 bytes"}, {"revision": 3278, "rev": "cce00d55a7d", "thumb_exists": false, "bytes": 84190, "modified": "Tue, 28 Feb 2012 08:53:34 +0000", "client_mtime": "Tue, 28 Feb 2012 08:53:34 +0000", "path": "/Divers/init-imprimer_rib.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "82.2 KB"}, {"revision": 3283, "rev": "cd300d55a7d", "thumb_exists": false, "bytes": 1580414, "modified": "Wed, 07 Mar 2012 23:19:32 +0000", "client_mtime": "Wed, 07 Mar 2012 23:19:08 +0000", "path": "/Divers/LFS-BOOK-7.1.pdf", "is_dir": false, "icon": "page_white_acrobat", "root": "dropbox", "mime_type": "application/pdf", "size": "1.5 MB"}, {"revision": 496, "rev": "1f000d55a7d", "thumb_exists": true, "bytes": 12202, "modified": "Wed, 13 Oct 2010 06:14:41 +0000", "client_mtime": "Tue, 07 Sep 2010 15:49:23 +0000", "path": "/Divers/n1407180127_1960.jpg", "is_dir": false, "icon": "page_white_picture", "root": "dropbox", "mime_type": "image/jpeg", "size": "11.9 KB"}], "size": "0 bytes"}
+
+
+{REQ #24} method: CONNECT ; host: ('107.20.132.92', 443) ; path: 443 ; proto: HTTP/1.0 ; len(body): 0
+
+Body : 
+
+
+[0;34m[D][0m [0;35m<b6f0bb70>[0m Send ack to the peer 127.0.0.1 on port 32949 for establishing SSL tunnel
+{REQ #26} method: GET ; host: ('api-content.dropbox.com', 443) ; path: /1/thumbnails/dropbox/Divers/n1407180127_1960.jpg?oauth_nonce=68639077&format=JPEG&oauth_consumer_key=92hbateam2dxxbk&oauth_timestamp=1337941919&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_token=le36240x9fw1ib2&oauth_signature=7315tog2zjsch4l%26ms6kmiz9qxztu0f&size=medium ; proto: HTTP/1.1 ; len(body): 0
+  Host: api-content.dropbox.com
+  Accept-Encoding: identity
+  Authorization: OAuth realm="", oauth_version="1.0", oauth_token="le36240x9fw1ib2", oauth_nonce="68639077", oauth_signature="7315tog2zjsch4l%26ms6kmiz9qxztu0f", oauth_consumer_key="92hbateam2dxxbk", oauth_timestamp="1337941919", oauth_signature_method="PLAINTEXT"
+  User-Agent: OfficialDropboxPythonSDK/1.4
+
+Body : 
+
+
+{RES #27} code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 1633
+  content-length: 1633
+  cache-control: no-cache
+  Server: nginx/1.0.14
+  Connection: keep-alive
+  pragma: no-cache
+  x-dropbox-metadata: {"revision": 496, "rev": "1f000d55a7d", "thumb_exists": true, "bytes": 12202, "modified": "Wed, 13 Oct 2010 06:14:41 +0000", "client_mtime": "Tue, 07 Sep 2010 15:49:23 +0000", "path": "/Divers/n1407180127_1960.jpg", "is_dir": false, "icon": "page_white_picture", "root": "dropbox", "mime_type": "image/jpeg", "size": "11.9 KB"}
+  Date: Fri, 25 May 2012 10:32:01 GMT
+  Content-Type: image/jpeg
+
+Body : ˇÿˇ‡ JFIF      ˇ€ C 
+
+
+		
+%# , #&')*)-0-(0%()(ˇ€ C
+
+
+
+(((((((((((((((((((((((((((((((((((((((((((((((((((ˇ¿  > /" ˇƒ           	
+ˇƒ µ   } !1AQa"q2Åë°#B±¡R—$3brÇ	
+%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzÉÑÖÜáàâäíìîïñóòôö¢£§•¶ß®©™≤≥¥µ∂∑∏π∫¬√ƒ≈∆«»… “”‘’÷◊ÿŸ⁄·‚„‰ÂÊÁËÈÍÒÚÛÙıˆ˜¯˘˙ˇƒ        	
+ˇƒ µ  w !1AQaq"2ÅBë°±¡	#3Rbr—
+$4·%Ò&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzÇÉÑÖÜáàâäíìîïñóòôö¢£§•¶ß®©™≤≥¥µ∂∑∏π∫¬√ƒ≈∆«»… “”‘’÷◊ÿŸ⁄‚„‰ÂÊÁËÈÍÚÛÙıˆ˜¯˘˙ˇ⁄   ? ˙ÊÚ;XZIùQdñ8 zì^A„å÷}À[ilóLßÊì8QÙıÆ„œéß∫÷[C±∏≈º 4˚Oﬁnª?3ÔÙØ1˜ÜÔºaÆ•µ´˘V—‡<º˛'‹‘T´m¥E“£ÕπÍ~ ¯—s5¥6˙R"Fgô»f˙.+Ã/|K¨jwN`‘oÄ-í<Ê_œöˆm3‡MÉ€6˛fúÓ+≈eÍˇ uQø≥ØmÿÛ√3\rØ¨éµáq—˛.Í˛’í€\∫{˝F€&dﬁÔÆ{zéûòØ™¥Î¯5(n¨¶Y≠¶PÒ∫ÜΩ|ØËZ´ˆ]I$é@qïQÎ_E˛Õ~!ñm3P–.ÿ≥Xñÿ∆›á‚3¯◊]ó≤ΩŒZ‘Ì©Ú›Õ€›]]\J≈§ëãdı95Ó_≠Ûß¥Ã0Âˇ :ÒOÈÁMÒ°b£ÂÇÊDSÿÖb+÷4mQ∑’à∞∑ögx√n[ÜESèA÷π±
+ÒIxmÓ})iÃ@Ô¡ÙÕC|^0≈ìËk»<o‚KÂ[€¶ƒÎÇV}ßÒ¨={≈ﬁ3µ‘d1Ó˚(røªâ_ÄqûHÆ)EÀ‹[ûÇ≤\Ïá„ã€ôÌ|π'ÅÈR˛Œ´7ç/•G //ny·ó˙WÒˆ˚W“-Ô/îÁÃQ∏∆Pûy»Ø:“µ[›*Ù‹i◊2€LπH‹£›Gµv`ï¢õËy¯Ωd◊s©¯•[|C◊@#iî˛–˙◊øxt”ïÜêá?Ö|„„Ìj-sƒöçÌ¨%à∆Úqñˇ 
+ˆ/Ü⁄ß€|)b‰îuèÀl˜+∆i‚ñóC¡ “≥:ÕG_∂∞÷«⁄<‡ä§Ç±‰;öì√z•ñ£h˜ç»ŒJóLı¨N+«lÆ€ïc¿0è÷ù∑6pÌù‚T«›	¥äÛÍw=ÑÌò¯Ì®D⁄M¥1¶Ë£–Wïx"ÿÕ¨å‹[¬UIy⁄≠«L˙÷∑≈=YÆuH≠"ê·s„‘’/ ÿ^Í˙∫√mi…D;ñT%qé¯Ô^ÜíÓxÿπ©T~F¥æº:~≠{©Òr«|J≠û≠íN+¥t?fµíD«Ãà2í;Û[z&ë©\%Âñ§÷å—ìµ„v9BqÉïÍ+¬ñ◊6W˙Üõt—∫$§°Bxúä“ºSÇhäÛ¥ŒÜ€Zöﬁ2Ø⁄SX:∂´w®N»ç{ûÊ∂Ól»F⁄¯ëzâßÿÕr√yU'ºÍêπË©ΩÆy.±¶\Íæ*ûﬁ…æÂOßÎ≥>ª}˛ˆkYÏ‚ë\Ótq¥±∆È[ü¥îkw÷f⁄◊éÃ1¸#8≠/Î6v2Amqj&iÅ;Ãj€@˙öÓº†íãÿ‡•R“JqÊLˇŸ
+
+
+[0;32m[*][0m [0;35m<b77d66c0>[0m Terminating... [14 requests, 7 responses]
