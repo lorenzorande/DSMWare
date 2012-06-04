@@ -9,19 +9,19 @@ from string import maketrans
 # Could be easily implemented but no need to have a fat code
 
 def getContent(fname):
-	#Read content
-	f = open(fname, 'r')
-	content = f.read()
-	f.close()
-	return content
+    #Read content
+    f = open(fname, 'r')
+    content = f.read()
+    f.close()
+    return content
 
 def setContent(fname, content):
-	f = open(fname, 'w')
-	f.write(content)
-	f.close
+    f = open(fname, 'w')
+    f.write(content)
+    f.close
 
 def goodFileName(fname, name = ""):
-	s = fname + "-" + name
-	trantab = maketrans( "/" , "-")
-	return s.translate(trantab)
+    s = fname + "-" + name
+    trantab = maketrans( "/" , "-")
+    return s.translate(trantab)
 

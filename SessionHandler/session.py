@@ -254,8 +254,8 @@ class DropboxSession(object):
         headers, params = self.build_access_headers_proxy('POST', url,  oauth_timestamp, oauth_nonce, oauth_version)
 
         response = rest.RESTClient.POST(url, headers=headers, params=params, raw_response=True)
-	repread=response.read()
-	#print repread
+    repread=response.read()
+    #print repread
         self.request_token = oauth.OAuthToken.from_string(repread)
         return self.request_token
 

@@ -1,3 +1,8 @@
+"""
+Usage : python simpleSSLHandler.py <PEM file> [port number the server will listen]
+This is the HTTPS server which will receive the connections from the client, and dispatch them to the DropboxRequestHandler
+We need a PEM certificate file that is either signed by an authority in dropbox's trusted_cert.crt, or that is directly in the trusted_cert.crt.
+"""
 import ssl
 import BaseHTTPServer
 
