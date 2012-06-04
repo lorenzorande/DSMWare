@@ -1,0 +1,11 @@
+HTTP/1.1 302 Found
+Location: https://www.google.fr/
+Cache-Control: private
+Content-Type: text/html; charset=UTF-8
+Date: Thu, 31 May 2012 12:31:47 GMT
+Server: gws
+Content-Length: 219
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+
+
