@@ -41,23 +41,14 @@ def getFile(fname):
 	
 #####
 #TEST
-from  cryptoFile import encrypt_file, decrypt_file
-import random
 
 if __name__ == "__main__" :
-	key =  "0xCEC5F2F668669FF1FAF2FFBF1FFFDF"
-	print "START"
-	print getContent("fdlys")
-	encrypt_file(key, "fdlys")
-	print "----------------------------------"
-	print getContent("fdlys")
-	print "-----------------------------------------------------"
-	decrypt_file(key, "fdlys")
-	#getFile("fdlys")
-	print getContent("fdlys")
-
-
-
+	fname = "toto"
+	putFile(fname)
+	print 'ENCYPHERED : ' +  getContent(fname)
+	getFile(fname)
+	print 'DECYPHERED : ' +  getContent(fname)
+	
 
 
 

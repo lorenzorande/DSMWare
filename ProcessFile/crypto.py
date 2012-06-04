@@ -5,16 +5,15 @@
 Module to manage crypto of files.
 
 '''
-
 #Import section
 import os.path
 import pickle
 import threading #in case...
 #module perso
 import cryptoAlgo
-from  utils import setContent, getContent
 
 ### Initialisation
+SECRET_KEY =  "0xCEC5F2F668669FF1FAF2FFBF1FFFDF" #16 bytes (AES key)
 
 
 ### Preferences
@@ -57,9 +56,7 @@ def encryptFile(fname):
 	Add crypto of the file "fname"
 	Replace content of the file by cipher text
 	'''
-	content = getContent(fname)
-	m = cryptoAlgo.encrypt(content) #Crypto
-	setContent(fname, m) #replace
+	cryptoAlgo.encrypt_file(SECRET_KEY, fname) #Crypto
 	set_lock.acquire()
 	CRYPTO_SET.add(fname) #not computed here pour avoid long blocking time 
 	saveCrypto() #lock avoid in same time concurrent access in the save file
@@ -69,9 +66,7 @@ def decryptFile(fname):
 	'''
 	Replace content of the file by plaintext
 	'''
-	content = getContent(fname)
-	m = cryptoAlgo.decrypt(content) 
-	setContent(fname, m)
+	cryptoAlgo.decrypt_file(SECRET_KEY, fname) 
 
 
 
@@ -80,7 +75,6 @@ def decryptFile(fname):
 
 if __name__ == "__main__":
 	s = "vcgbanevbmioncaxnc fyivzbcoapivenzpc*nvteo:lnc478/e5t1bv684186\n\r\tbvznvcbzzbcbebbce   ezc zrvcze cz e8861841811014018+++5-==-"
-	print computeCrypto(s)
 	
 
 ###########################"

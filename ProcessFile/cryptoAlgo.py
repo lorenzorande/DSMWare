@@ -1,34 +1,74 @@
-#######################
-## CRypto Functions  ##
-#######################
+import os, random, struct
+from Crypto.Cipher import AES
 
-import cryptoAES
+def encrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
+    """ Encrypts a file using AES (CBC mode) with the
+        given key.
 
-########
-# Parameters
+        key:
+            The encryption key - a string that must be
+            either 16, 24 or 32 bytes long. Longer keys
+            are more secure.
 
-SECRET_KEY = u'h1h1c34ee5f227h891bfccc2e589g62f'
+        in_filename:
+            Name of the input file
 
-##########
-# 2 Top-level functions (pattern-like)
-# Allow to change cryptoalgorithm system without changing server code
+        out_filename:
+            If None, '<in_filename>.enc' will be used.
 
-cypherCode = cryptoAES.AESCypher(SECRET_KEY)
+        chunksize:
+            Sets the size of the chunk which the function
+            uses to read and encrypt the file. Larger chunk
+            sizes can be faster for some files and machines.
+            chunksize must be divisible by 16.
+    """
+    if not out_filename:
+        out_filename = in_filename + ".enc"
 
-def encrypt(p):
-	return cypherCode.encrypt(p)
+    iv = ''.join(chr(random.randint(0, 0xFF)) for i in range(16))
+    encryptor = AES.new(key, AES.MODE_CBC, iv)
+    filesize = os.path.getsize(in_filename)
 
-def decrypt(c):
-	return cypherCode.decrypt(c)
+    with open(in_filename, 'rb') as infile:
+        with open(out_filename, 'wb') as outfile:
+            outfile.write(struct.pack('<Q', filesize))
+            outfile.write(iv)
 
+            while True:
+                chunk = infile.read(chunksize)
+                if len(chunk) == 0:
+                    break
+                elif len(chunk) % 16 != 0:
+                    chunk += ' ' * (16 - len(chunk) % 16)
+                outfile.write(encryptor.encrypt(chunk))
+    #Manage files
+#    os.remove(in_filename)
+    os.rename(out_filename, in_filename)
 
-#########
-#Test
-if __name__ == "__main__" :
-	p1 = " method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/request_token ; proto: HTTP/1.1 ; len(body): 168\n  Content-Length: 168\n  Accept-Encoding: identity\n  User-Agent: OfficialDropboxPythonSDK/1.4\n Host: api.dropbox.com\n  Content-type: application/x-www-form-urlencoded\n  Authorization: OAuth realm=\"\", oauth_nonce=\"28356426\", oauth_timestamp=\"1337941763\", oauth_consumer_key=\"92hbateam2dxxbk\", oauth_signature_method=\"PLAINTEXT\", oauth_version=\"1.0\", oauth_signature=\"7315tog2zjsch4l%26\"\n\nBody : oauth_nonce=28356426&oauth_timestamp=1337941763&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_signature=7315tog2zjsch4l%26\n"
-	print "\n---PlainText :\n"+p1
-	enc1 =  encrypt(p1)
-	print "\n---CipherText:\n"+enc1
-	print "\n---Deciphered : \n" + decrypt(enc1)
+def decrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
+    """ Decrypts a file using AES (CBC mode) with the
+        given key. Parameters are similar to encrypt_file,
+        with one difference: out_filename, if not supplied
+        will be in_filename without its last extension
+        (i.e. if in_filename is 'aaa.zip.enc' then
+        out_filename will be 'aaa.zip')
+    """
+    if not out_filename:
+        out_filename = os.path.splitext(in_filename)[0]
 
-#########################################################################
+    with open(in_filename, 'rb') as infile:
+        origsize = struct.unpack('<Q', infile.read(struct.calcsize('Q')))[0]
+        iv = infile.read(16)
+        decryptor = AES.new(key, AES.MODE_CBC, iv)
+
+        with open(out_filename, 'wb') as outfile:
+            while True:
+                chunk = infile.read(chunksize)
+                if len(chunk) == 0:
+                    break
+                outfile.write(decryptor.decrypt(chunk))
+
+            outfile.truncate(origsize)
+    #Manage files
+#    os.remove(in_filename)
+    os.rename(out_filename, in_filename)
