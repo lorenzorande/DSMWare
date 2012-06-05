@@ -10,8 +10,9 @@ p_top_cli = re.compile("\s*method: (?P<method>\S*) ; host: (?P<host>[(]\S*\s*\d+
 p_top_srv =  re.compile("\s*code: (?P<code>[^;]*) ; proto: (?P<proto>\S*) ; len\(body\): (?P<len>\d+)\s*\n")
 
 p_glob = re.compile("\s*(\S*)\s*:\s+(.*)\n")
+p_oath = re.compile("\s*([^&=]*)=([^&=]*)&")
 
-def parser( string_httprequest):
+def parseHttp( string_httprequest):
 	'''
 	Parse Http request and return a dict with all the values extracted for each field
 	Be carefull: 
@@ -39,6 +40,19 @@ def parser( string_httprequest):
 	#Return dict
 	return d
 		
+def parseOath(httpString) :
+	"""fonction qui parse httpsting pour recuperer oauth_consumer_key oauth_timestamp oauth_nonce oauth_version"""
+
+	parsed = parser.parser(httpString)
+	toparse = parsed['Body']
+	toparse += '&'
+	newparsed=dict(p_oath.findall(toparse))
+	return newparsed
+
+def parseToken(request_token) :
+	request_token += '&'
+	newparsed=dict(p_oath.findall(request_token))
+	return newparsed
 
 if __name__ == "__main__" :
 	req1 = " method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/request_token ; proto: HTTP/1.1 ; len(body): 168\n  Content-Length: 168\n  Accept-Encoding: identity\n  User-Agent: OfficialDropboxPythonSDK/1.4\n Host: api.dropbox.com\n  Content-type: application/x-www-form-urlencoded\n  Authorization: OAuth realm=\"\", oauth_nonce=\"28356426\", oauth_timestamp=\"1337941763\", oauth_consumer_key=\"92hbateam2dxxbk\", oauth_signature_method=\"PLAINTEXT\", oauth_version=\"1.0\", oauth_signature=\"7315tog2zjsch4l%26\"\n\nBody : oauth_nonce=28356426&oauth_timestamp=1337941763&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_signature=7315tog2zjsch4l%26\n"
