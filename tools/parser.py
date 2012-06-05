@@ -43,7 +43,7 @@ def parseHttp( string_httprequest):
 def parseOath(httpString) :
 	"""fonction qui parse httpsting pour recuperer oauth_consumer_key oauth_timestamp oauth_nonce oauth_version"""
 
-	parsed = parser.parser(httpString)
+	parsed = parseHttp(httpString)
 	toparse = parsed['Body']
 	toparse += '&'
 	newparsed=dict(p_oath.findall(toparse))
