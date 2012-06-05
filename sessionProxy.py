@@ -11,42 +11,38 @@ from dropbox import client, rest, session
 def ClientConsumerInfo(consumer_key,idconfigfile) :
 	"""fonction pour trouver consumer_secret dans le fichier de conf"""
 
-	f=open(idconfigfile,"r")
-	line = f.readline()
-		
-	while line != "" and line.split()[0] != consumer_key:
+	with f=open(idconfigfile,"r")
 		line = f.readline()
-		
-	if line == "" :
-		#consumer_key n est pas ds le fichier 
-		#consumer_secret sera 000000000000000 par defaut et dropbox enverra un message d erreur
-		return 000000000000000
+			
+		while line != "" and line.split()[0] != consumer_key:
+			line = f.readline()
+			
+		if line == "" :
+			#consumer_key n est pas ds le fichier 
+			#consumer_secret sera 000000000000000 par defaut et dropbox enverra un message d erreur
+			return 000000000000000
 
-	else :
-		return line
+		else :
+			return line
 
 
 def write_creds(consumer_key, token, TOKEN_FILE):
-	f = open(TOKEN_FILE, 'r')
-	g = open("temp", 'w')
+	with f = open(TOKEN_FILE, 'r')
+		with g = open("temp", 'w')
+			line = f.readline()
+			while line != "" and line.split()[0] != consumer_key:
+				g.write(line)
+				line = f.readline()
 
-	line = f.readline()
-	while line != "" and line.split()[0] != consumer_key:
-		g.write(line)
-		line = f.readline()
+			if line.split()[0] == consumer_key:
+				g.write(line.split()[0]+" "+line.split()[1]+" "+"|".join([token.key, token.secret]))
 
-	if line.split()[0] == consumer_key:
-		g.write(line.split()[0]+" "+line.split()[1]+" "+"|".join([token.key, token.secret]))
-
-	line = f.readline()
-	while line != "" :
-		g.write(line)
-		line = f.readline()
-
-	f.close()
-	g.close()
-	os.remove(TOKEN_FILE)
-	os.rename("temp",TOKEN_FILE)
+			line = f.readline()
+			while line != "" :
+				g.write(line)
+				line = f.readline()
+			#Rename and replace
+			os.rename("temp",TOKEN_FILE)
 	
 
 
@@ -58,8 +54,6 @@ def ClientHandler(clientHttpMessage) :
 	httpParsed = parser.parseHttp(clientHttpMessage)
 	host = httpParsed['host']
 	path = httpParsed['path']
-
-
 
 	######### a voir si vraiment utile ########
 	# gestion de l authentification
