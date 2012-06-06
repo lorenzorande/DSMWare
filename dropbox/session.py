@@ -16,9 +16,12 @@ from dropbox import rest
 class DropboxSession(object):
     API_VERSION = 1
 
-    API_HOST = "api.dropbox.com"
-    WEB_HOST = "www.dropbox.com"
-    API_CONTENT_HOST = "api-content.dropbox.com"
+    #API_HOST = "api.dropbox.com"
+    #WEB_HOST = "www.dropbox.com"
+    #API_CONTENT_HOST = "api-content.dropbox.com"
+    API_HOST = "localhost"
+    WEB_HOST = "localhost"
+    API_CONTENT_HOST = "localhost"
 
     def __init__(self, consumer_key, consumer_secret, access_type, locale=None):
         """Initialize a DropboxSession object.

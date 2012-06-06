@@ -61,7 +61,7 @@ class RESTClient(object):
             headers["Content-type"] = "application/x-www-form-urlencoded"
 
         host = urlparse.urlparse(url).hostname
-        conn = ProperHTTPSConnection(host, 443)
+        conn = ProperHTTPSConnection(host, 4443)
 
         try:
 
@@ -216,9 +216,9 @@ class ProperHTTPSConnection(httplib.HTTPConnection):
     def connect(self):
         sock = create_connection((self.host, self.port))
         self.sock = ssl.wrap_socket(sock, cert_reqs=self.cert_reqs, ca_certs=self.ca_certs)
-        cert = self.sock.getpeercert()
-        hostname = self.host.split(':', 0)[0]
-        match_hostname(cert, hostname)
+        #cert = self.sock.getpeercert()
+        #hostname = self.host.split(':', 0)[0]
+        #match_hostname(cert, hostname)
 
 class CertificateError(ValueError):
     pass
