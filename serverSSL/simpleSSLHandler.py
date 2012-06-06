@@ -6,17 +6,21 @@ We need a PEM certificate file that is either signed by an authority in dropbox'
 import ssl
 import BaseHTTPServer
 import urlparse
+import threading
+from SocketServer import ThreadingMixIn
 
 from WTMH import DropboxRequestHandler
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
-        print("%%%%%Hey, I got a message from "+str(self.client_address))
+        print("%%%%% Hello, I am "+threading.currentThread().getName())
+        print("%%%%% I got a message from "+str(self.client_address))
         url = urlparse.urlparse(self.path, 'http')
-        print("%%%%%The URL is : " + str(url))
+        print("%%%%% The URL is : " + str(url))
+
         #This is where the message from the client is handled, and gives a reply to send back to the client.
-        print("%%%%%"+DropboxRequestHandler(str(self.headers), self.rfile))
+        print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
 ##        self.wfile.write(open("httpResponse").read()) #Sample httpResponse
         self.send_error(404,"CONNARDS")
         print("=>Request served !\n")
@@ -25,6 +29,10 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     do_POST   = do_GET
     do_PUT    = do_GET
     do_DELETE = do_GET
+
+class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+    """This is an HTTPServer, with threading enabled"""
+    pass
 
 if __name__ == "__main__":
     import os
@@ -38,7 +46,7 @@ if __name__ == "__main__":
     else:
         host=('localhost', int(sys.argv[2]))
     certificate=sys.argv[1]
-    httpd = BaseHTTPServer.HTTPServer(host, RequestHandler)
+    httpd = ThreadedHTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
     httpd.serve_forever()
