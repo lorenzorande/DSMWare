@@ -11,8 +11,6 @@ from SocketServer import ThreadingMixIn
 
 import sessionProxy
 
-from WTMH import DropboxRequestHandler
-
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
@@ -24,16 +22,24 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         #This is where the message from the client is handled, and gives a reply to send back to the client.
         print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
 
-	sessionProxy.ClientHandler(url,str(self.headers))
-
-##        self.wfile.write(open("httpResponse").read()) #Sample httpResponse
-        self.send_error(404,"CONNARDS")
+        response = sessionProxy.ClientHandler(url,str(self.headers))
+        send_HTTPResponse(response)
         print("=>Request served !\n")
     
     do_HEAD   = do_GET
     do_POST   = do_GET
     do_PUT    = do_GET
     do_DELETE = do_GET
+    
+    def send_HTTPResponse(self, response):
+        """This method will convert most of the HTTPResponse response and send it back to the client"""
+        self.send_response(response.status, response.reason)
+        for header in response.getheaders():
+            self.send_header(header[0],header[1])
+        self.end_headers()
+        self.wfile.write(response.read())
+        self.wfile.close()
+        
 
 class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
     """This is an HTTPServer, with threading enabled"""
