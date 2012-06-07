@@ -1,6 +1,7 @@
-######################
-## PARSER FUNCTION  ##
-######################
+"""## PARSER FUNCTION  ##
+This file provides various functions to parse the messages from the client.
+The patterns are compiled during importation
+"""
 
 import re
 

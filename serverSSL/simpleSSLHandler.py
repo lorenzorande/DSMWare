@@ -12,6 +12,7 @@ from SocketServer import ThreadingMixIn
 from WTMH import DropboxRequestHandler
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    """Every time a connection is made to the server, a new instance of the RequestHandler class is created, and the appropriate method is called (here, they are all stubs for do_GET())."""
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
         print("%%%%% Hello, I am "+threading.currentThread().getName())
