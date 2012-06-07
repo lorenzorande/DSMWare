@@ -10,8 +10,6 @@ p_top_cli = re.compile("\s*method: (?P<method>\S*) ; host: (?P<host>[(]\S*\s*\d+
 p_top_srv =  re.compile("\s*code: (?P<code>[^;]*) ; proto: (?P<proto>\S*) ; len\(body\): (?P<len>\d+)\s*\n")
 
 p_glob = re.compile("\s*(\S*)\s*:\s+(.*)\n")
-p_oath = re.compile("\s*([^&=]*)=([^&=]*)&")
-p_authorization = re.compile("\s*([^=]*)=([^,]*),")
 
 def parseHttp( string_httprequest):
 	'''
@@ -30,7 +28,6 @@ def parseHttp( string_httprequest):
 	if not m_top : 
 		m_top = p_top_srv.search(request)
 		#if not m_top : return d #return {} if error
-		#TODO add a logger to see if there is a pb
 	if m_top :
 		d = dict(m_top.groupdict() ,**d)
 		request = request[m_top.end(0)+1 :]
@@ -43,7 +40,9 @@ def parseHttp( string_httprequest):
 	return d
 		
 def parseOauth(httpString) :
-	"""fonction qui parse httpsting pour recuperer oauth_consumer_key oauth_timestamp oauth_nonce oauth_version"""
+	'''
+	Parses httpString return a dict with oauth_consumer_key oauth_timestamp oauth_nonce oauth_version as keys which were in the Body
+	'''
 
 	parsed = parseHttp(httpString)
 	toparse = parsed['Body']
@@ -52,11 +51,20 @@ def parseOauth(httpString) :
 	return newparsed
 
 def parseToken(request_token) :
+	'''
+	Parses and extract the token
+	'''
+	p_oath = re.compile("\s*([^&=]*)=([^&=]*)&")
 	request_token += '&'
 	newparsed=dict(p_oath.findall(request_token))
 	return newparsed
 
 def parseHeaders(httpString):
+	'''
+	Parses Headers, retrieve all oath parameters from "Authorization" field
+	Return Dict
+	'''
+	p_authorization = re.compile("\s*([^=]*)=([^,]*),")
 	parsed = parseHttp(httpString)
 	toparse = parsed["Authorization"]
 	toparse += ','	
