@@ -40,7 +40,7 @@ def parseHttp( string_httprequest):
 	#Return dict
 	return d
 		
-def parseOath(httpString) :
+def parseOauth(httpString) :
 	"""fonction qui parse httpsting pour recuperer oauth_consumer_key oauth_timestamp oauth_nonce oauth_version"""
 
 	parsed = parseHttp(httpString)
@@ -58,8 +58,12 @@ if __name__ == "__main__" :
 	req1 = " method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/request_token ; proto: HTTP/1.1 ; len(body): 168\n  Content-Length: 168\n  Accept-Encoding: identity\n  User-Agent: OfficialDropboxPythonSDK/1.4\n Host: api.dropbox.com\n  Content-type: application/x-www-form-urlencoded\n  Authorization: OAuth realm=\"\", oauth_nonce=\"28356426\", oauth_timestamp=\"1337941763\", oauth_consumer_key=\"92hbateam2dxxbk\", oauth_signature_method=\"PLAINTEXT\", oauth_version=\"1.0\", oauth_signature=\"7315tog2zjsch4l%26\"\n\nBody : oauth_nonce=28356426&oauth_timestamp=1337941763&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_signature=7315tog2zjsch4l%26\n"
 	req2 = 'code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 1907\n	content-length: 1633\n  cache-control: no-cache\n  Server: nginx/1.0.14\n  Connection: keep-alive\n  pragma: no-cache\n  x-dropbox-metadata: {"revision": 496, "rev": "1f000d55a7d", "thumb_exists": true, "bytes": 12202, "modified": "Wed, 13 Oct 2010 06:14:41 +0000", "client_mtime": "Tue, 07 Sep 2010 15:49:23 +0000", "path": "/Divers/n1407180127_1960.jpg", "is_dir": false, "icon": "page_white_picture", "root": "dropbox", "mime_type": "image/jpeg", "size": "11.9 KB"}\n  Date: Fri, 25 May 2012 10:32:01 GMT\n  Content-Type: image/jpeg\n'
 
-	print parser(req1)
-	print parser(req2)
+
+	req3 = "Host: localhost\nAccept-Encoding: identity\nContent-Length: 168\nContent-type: application/x-www-form-urlencoded\nAuthorization: OAuth realm=\"\", oauth_nonce=\"50400732\", oauth_timestamp=\"1339052247\", oauth_consumer_key=\"6y443oxnwt7q32y\", oauth_signature_method=\"PLAINTEXT\", oauth_version=\"1.0\", oauth_signature=\"tgouotgz6h4j7qo%26\"\nUser-Agent: OfficialDropboxPythonSDK/1.4"
+
+
+	print req3
+	print parseHttp(req3)
 
 #########################################################################
 #Archives (first version with a complete parsing)
