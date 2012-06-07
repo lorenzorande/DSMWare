@@ -9,10 +9,11 @@ import urlparse
 import threading
 from SocketServer import ThreadingMixIn
 
+import sessionProxy
+
 from WTMH import DropboxRequestHandler
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-    """Every time a connection is made to the server, a new instance of the RequestHandler class is created, and the appropriate method is called (here, they are all stubs for do_GET())."""
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
         print("%%%%% Hello, I am "+threading.currentThread().getName())
@@ -22,6 +23,9 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         #This is where the message from the client is handled, and gives a reply to send back to the client.
         print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
+
+	sessionProxy.ClientHandler(url,str(self.headers))
+
 ##        self.wfile.write(open("httpResponse").read()) #Sample httpResponse
         self.send_error(404,"CONNARDS")
         print("=>Request served !\n")
