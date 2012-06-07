@@ -6,6 +6,7 @@ use all of this information to craft properly constructed requests to Dropbox.
 
 A DropboxSession object must be passed to a dropbox.client.DropboxClient object upon
 initialization.
+This file was derived from the official dropbox API, with a few methods added to help with proxying.
 """
 
 import urllib
