@@ -19,13 +19,8 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         url = urlparse.urlparse(self.path, 'http')
         print("%%%%% The URL is : " + str(url))
 
-        #This is where the message from the client is handled, and gives a reply to send back to the client.
-        #print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
-
         response = credentialManager.ClientHandler(url,str(self.headers))
-
-	print "object response fetched"
-
+        print "object response fetched"
         self.send_HTTPResponse(response)
         print("=>Request served !\n")
     
@@ -37,10 +32,14 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def send_HTTPResponse(self, response):
         """This method will convert most of the HTTPResponse response and send it back to the client"""
         self.send_response(response.status, response.reason)
+        bufferedBody=response.read()
+        print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
+        print("<-------Headers : "+str(response.getheaders))
+        print("<-------Body : "+str(bufferedBody))
         for header in response.getheaders():
             self.send_header(header[0],header[1])
         self.end_headers()
-        self.wfile.write(response.read())
+        self.wfile.write(bufferedBody)
         self.wfile.close()
         
 
@@ -60,7 +59,7 @@ if __name__ == "__main__":
     else:
         host=('localhost', int(sys.argv[2]))
     certificate=sys.argv[1]
-    httpd = ThreadedHTTPServer(host, RequestHandler)
+    httpd = BaseHTTPServer.HTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
     httpd.serve_forever()
