@@ -34,7 +34,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_response(response.status, response.reason)
         bufferedBody=response.read()
         print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
-        print("<-------Headers : "+str(response.getheaders))
+        print("<-------Headers : "+str(response.getheaders()))
         print("<-------Body : "+str(bufferedBody))
         for header in response.getheaders():
             self.send_header(header[0],header[1])
