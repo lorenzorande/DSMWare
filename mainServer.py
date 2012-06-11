@@ -38,9 +38,8 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         print("<-------Body : "+str(len(bufferedBody)))
         for header in response.getheaders():
             self.send_header(header[0],header[1])
-        self.end_headers()
-        if len(bufferedBody) == 0:
-            bufferdBody = "Caca\r\n"
+        #self.end_headers()
+        bufferedBody = "Caca\r\n"
         self.wfile.write(bufferedBody)
         self.wfile.close()
         
