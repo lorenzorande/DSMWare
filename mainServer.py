@@ -35,10 +35,12 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         bufferedBody=response.read()
         print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
         print("<-------Headers : "+str(response.getheaders()))
-        print("<-------Body : "+str(bufferedBody))
+        print("<-------Body : "+str(len(bufferedBody)))
         for header in response.getheaders():
             self.send_header(header[0],header[1])
         self.end_headers()
+        if len(bufferedBody) == 0:
+            bufferdBody = "Caca\r\n"
         self.wfile.write(bufferedBody)
         self.wfile.close()
         
