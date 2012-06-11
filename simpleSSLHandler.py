@@ -9,7 +9,7 @@ import urlparse
 import threading
 from SocketServer import ThreadingMixIn
 
-import credantialManager
+import credentialManager
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
