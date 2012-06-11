@@ -60,7 +60,7 @@ if __name__ == "__main__":
     else:
         host=('localhost', int(sys.argv[2]))
     certificate=sys.argv[1]
-    httpd = ThreadedHTTPServer(host, RequestHandler)
+    httpd = BaseHTTPServer.HTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
     httpd.serve_forever()
