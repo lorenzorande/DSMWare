@@ -20,10 +20,13 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         print("%%%%% The URL is : " + str(url))
 
         #This is where the message from the client is handled, and gives a reply to send back to the client.
-        print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
+        #print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
 
         response = sessionProxy.ClientHandler(url,str(self.headers))
-        send_HTTPResponse(response)
+
+	print "object response fetched"
+
+        self.send_HTTPResponse(response)
         print("=>Request served !\n")
     
     do_HEAD   = do_GET
