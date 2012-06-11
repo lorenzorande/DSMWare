@@ -2,7 +2,7 @@ import tools.parser as parser
 import os
 import oauth.oauth as oauth
 
-import client_proxy, rest_proxy, session_proxy
+import dropbox_proxy.client_proxy, dropbox_proxy.rest_proxy,  dropbox_proxy.session_proxy
 
 
 def ClientConsumerInfo(consumer_key,idconfigfile) :

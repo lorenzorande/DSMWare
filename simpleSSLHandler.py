@@ -9,7 +9,7 @@ import urlparse
 import threading
 from SocketServer import ThreadingMixIn
 
-import sessionProxy
+import sessionHandler.credentialManager 
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -22,7 +22,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         #This is where the message from the client is handled, and gives a reply to send back to the client.
         #print("%%%%% Response : "+DropboxRequestHandler(str(self.headers), self.rfile))
 
-        response = sessionProxy.ClientHandler(url,str(self.headers))
+        response = credentialManager.ClientHandler(url,str(self.headers))
 
 	print "object response fetched"
 
