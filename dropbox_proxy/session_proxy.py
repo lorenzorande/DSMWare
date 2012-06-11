@@ -6,13 +6,12 @@ use all of this information to craft properly constructed requests to Dropbox.
 
 A DropboxSession object must be passed to a dropbox.client.DropboxClient object upon
 initialization.
-This file was derived from the official dropbox API, with a few methods added to help with proxying.
 """
 
 import urllib
 import oauth.oauth as oauth
 
-from dropbox import rest
+import rest_proxy as rest
 
 class DropboxSession(object):
     API_VERSION = 1
@@ -159,6 +158,7 @@ class DropboxSession(object):
         headers, params = self.build_access_headers('POST', url)
 
         response = rest.RESTClient.POST(url, headers=headers, params=params, raw_response=True)
+
         self.request_token = oauth.OAuthToken.from_string(response.read())
         return self.request_token
 
@@ -234,7 +234,7 @@ class DropboxSession(object):
 
 ##############Added for DSMware project##########################
 
-    def obtain_request_token_proxy(self, oauth_timestamp, oauth_nonce, oauth_version):
+    def obtain_request_token_proxy(self):
         """Obtain a request token from the Dropbox API.
 
         This is your first step in the OAuth process.  You call this to get a
@@ -252,16 +252,14 @@ class DropboxSession(object):
         """
         self.token = None # clear any token currently on the request
         url = self.build_url(self.API_HOST, '/oauth/request_token')
-        headers, params = self.build_access_headers_proxy('POST', url,  oauth_timestamp, oauth_nonce, oauth_version)
+        headers, params = self.build_access_headers('POST', url)
 
         response = rest.RESTClient.POST(url, headers=headers, params=params, raw_response=True)
-    repread=response.read()
-    #print repread
-        self.request_token = oauth.OAuthToken.from_string(repread)
-        return self.request_token
+	
+        return response
 
 
-    def obtain_access_token_proxy(self, oauth_timestamp, oauth_nonce, oauth_version, request_token=None):
+    def obtain_access_token_proxy(self, request_token=None):
         """Obtain an access token for a user.
 
         After you get a request token, and then send the user to the authorize
@@ -284,51 +282,12 @@ class DropboxSession(object):
         request_token = request_token or self.request_token
         assert request_token, "No request_token available on the session. Please pass one."
         url = self.build_url(self.API_HOST, '/oauth/access_token')
-        headers, params = self.build_access_headers_proxy('POST', url, oauth_timestamp, oauth_nonce, oauth_version, request_token=request_token)
+        headers, params = self.build_access_headers('POST', url, request_token=request_token)
 
         response = rest.RESTClient.POST(url, headers=headers, params=params, raw_response=True)
         self.token = oauth.OAuthToken.from_string(response.read())
         return self.token
 
 
-
-    def build_access_headers_proxy(self, method, resource_url,oauth_timestamp,oauth_nonce,oauth_version, params=None, request_token=None):
-        """Build OAuth access headers for a future request.
-
-        Args:
-            method: The HTTP method being used (e.g. 'GET' or 'POST').
-            resource_url: The full url the request will be made to.
-            params: A dictionary of parameters to add to what's already on the url.
-                Typically, this would consist of POST parameters.
-
-        Returns:
-            A tuple of (header_dict, params) where header_dict is a dictionary
-            of header names and values appropriate for passing into dropbox.rest.RESTClient
-            and params is a dictionary like the one that was passed in, but augmented with
-            oauth-related parameters as appropriate.
-        """
-        if params is None:
-            params = {}
-        else:
-            params = params.copy()
-
-        oauth_params = {
-            'oauth_consumer_key': self.consumer.key,
-            'oauth_timestamp': oauth_timestamp,
-            'oauth_nonce': oauth_nonce,
-            'oauth_version': oauth_version,
-        }
-
-        token = request_token if request_token else self.token
-
-        if token:
-            oauth_params['oauth_token'] = token.key
-
-        params.update(oauth_params)
-
-        oauth_request = oauth.OAuthRequest.from_request(method, resource_url, parameters=params)
-        oauth_request.sign_request(self.signature_method, self.consumer, token)
-
-        return oauth_request.to_header(), params
 
 ##########################################################################

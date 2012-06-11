@@ -6,13 +6,12 @@ use all of this information to craft properly constructed requests to Dropbox.
 
 A DropboxSession object must be passed to a dropbox.client.DropboxClient object upon
 initialization.
-This file was derived from the official dropbox API, with a few methods added to help with proxying.
 """
 
 import urllib
 import oauth.oauth as oauth
 
-from dropbox import rest
+import rest2 as rest
 
 class DropboxSession(object):
     API_VERSION = 1
@@ -255,8 +254,8 @@ class DropboxSession(object):
         headers, params = self.build_access_headers_proxy('POST', url,  oauth_timestamp, oauth_nonce, oauth_version)
 
         response = rest.RESTClient.POST(url, headers=headers, params=params, raw_response=True)
-    repread=response.read()
-    #print repread
+	repread=response.read()
+	#print repread
         self.request_token = oauth.OAuthToken.from_string(repread)
         return self.request_token
 
