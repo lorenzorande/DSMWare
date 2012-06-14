@@ -36,7 +36,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             if header[0] == 'server':
                 self.server_version='nginx/1.0.14'#We want to simulate the dropbox server as well as possible
         bufferedBody=response.read()
-        bufferedBody = "Caca\r\n"
+        #bufferedBody = "Caca\r\n"
         print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
         print("<-------Headers : "+str(response.getheaders()))
         print("<-------Body size : "+str(len(bufferedBody)))
