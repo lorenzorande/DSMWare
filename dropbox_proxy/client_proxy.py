@@ -146,7 +146,7 @@ class DropboxClient(object):
 
         url, params, headers = self.request(path, params, method='PUT', content_server=True)
 
-        return RESTClient.PUT(url, file_obj, headers)
+        return RESTClient.PUT(url, file_obj, headers,raw_response=True)
 
     def get_file(self, from_path, rev=None):
         """Download a file.
