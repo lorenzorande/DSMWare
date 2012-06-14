@@ -46,9 +46,12 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             self.send_header(header[0],header[1])
         self.end_headers()
         if bufferedBody != '':
-            self.wfile.write(bufferedBody)
-        self.wfile.write("\r\n\r\n")
-        #self.wfile.close()
+            self.wfile.write(str(len(bufferedBody))+"\r\n")
+            self.wfile.write(bufferedBody.strip()+"\r\n")
+        else:
+            self.wfile.write("\r\n")
+        self.wfile.write("0\r\n\r\n")
+        self.wfile.close()
         
 
 class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
