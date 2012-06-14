@@ -19,8 +19,8 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
         
-        print("%%%%% Hello, I am "+threading.currentThread().getName())
-        print("%%%%% I got a message from "+str(self.client_address))
+        print("%%%%% Hello, I am " + threading.currentThread().getName())
+        print("%%%%% I got a message from " + str(self.client_address))
         url = urlparse.urlparse(self.path, 'http')
         print("%%%%% The URL is : " + str(url))
 
@@ -37,7 +37,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def send_HTTPResponse(self, response):
         """This method will convert most of the HTTPResponse response and send it back to the client"""
         bufferedBody=response.read()
-        print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
+        print("<-------Status, reason : " + str(response.status) + "," + str(response.reason))
         print("<-------Headers : "+str(response.getheaders()))
         print("<-------Body size : "+str(len(bufferedBody)))
         print("<-------Body : "+str(bufferedBody))
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     else:
         host=('localhost', int(sys.argv[2]))
     certificate=sys.argv[1]
-    httpd = BaseHTTPServer.HTTPServer(host, RequestHandler)
+    httpd = ThreadedHTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
     httpd.serve_forever()
