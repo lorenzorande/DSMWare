@@ -24,7 +24,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         url = urlparse.urlparse(self.path, 'http')
         print("%%%%% The URL is : " + str(url))
 
-        response = credentialManager.ClientHandler(url,str(self.headers))
+        response = credentialManager.ClientHandler(url,str(self.headers),self.rfile)
         print "object response fetched"
         self.send_HTTPResponse(response)
         print("=>Request served !\n")

@@ -5,7 +5,7 @@ import oauth.oauth as oauth
 import dropbox_proxy.client_proxy as client_proxy, dropbox_proxy.rest_proxy as rest_proxy, dropbox_proxy.session_proxy as session_proxy
 
 
-def ClientHandler(url,clientHttpHeader) :
+def ClientHandler(url,clientHttpHeader, readFile) :
 	"""handler handling requests from a client"""
 	
 	path = str(url[2])
