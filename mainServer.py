@@ -50,7 +50,8 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             self.wfile.write(bufferedBody.strip()+"\r\n")
         else:
             self.wfile.write("\r\n")
-        self.wfile.write("0\r\n\r\n")
+        self.wfile.write("0\r\n\r\n\r\n")
+        self.wfile.flush()
         self.wfile.close()
         
 
