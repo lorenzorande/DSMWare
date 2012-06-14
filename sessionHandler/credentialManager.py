@@ -111,12 +111,13 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 			print "file opened"
 			dbclient=client_proxy.DropboxClient(sess)
 			print "db session opened"
-			dbclient.put_file(to_path,from_file)
+			response=dbclient.put_file(to_path,from_file)
 			print "end transfert"
 
 		"""destroying the temp file"""
-		
+		#TODO
 
+		return response
 
 
 
