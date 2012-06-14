@@ -56,10 +56,6 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 			"""storing the requested token in a file"""
 			#write_creds(consumer_key, request_token, "id.conf")
 		
-				
-				
-			#transmission transparente de la reponse a l aide du parsage de clientHttpMessage
-			#TODO
 
 
 	if path.split("/")[2] == "account" :
@@ -75,11 +71,35 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 
 
 
+	if path.split("/")[2] == "files_put" :
+		"""the client has done a put_file"""
+		
+		"""we first store the file"""
+		"""we need to know where"""
+		temp_path=str(consumer_key)+"/"+path[13:]
+
+		"""creating folder if it does not exist"""
+		try :
+			os.makedirs(os.path.split(temp_path)[0])
+
+		except OSError:
+			pass
 
 
+		"""write readFile in a file"""
+		with open(temp_path,"w") as f :
+			print "file opened"
+			line = readFile.readline()
+			while line !="" :
+				print line
+				f.write(line)
+				line=readFile.readline()
 
+		"""encryption of the file"""
+		#TODO
 
-
+		"""sending the encrypted file to dropbox"""
+		
 
 
 
