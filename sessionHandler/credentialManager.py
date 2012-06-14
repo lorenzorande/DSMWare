@@ -13,6 +13,7 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 
 	"""identifying the client"""
 	oauthParsed =parser.parseHeaders(clientHttpHeader)
+
 	consumer_key = oauthParsed['Authorization']['oauth_consumer_key'][1:-1]
 	info=ClientConsumerInfo(consumer_key,"id.conf")
 	consumer_secret=info.split()[1]
@@ -56,10 +57,6 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 			"""storing the requested token in a file"""
 			#write_creds(consumer_key, request_token, "id.conf")
 		
-				
-				
-			#transmission transparente de la reponse a l aide du parsage de clientHttpMessage
-			#TODO
 
 
 	if path.split("/")[2] == "account" :
@@ -75,12 +72,50 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 
 
 
+	if path.split("/")[2] == "files_put" :
+		"""the client has done a put_file"""
+		
+		body_length=oauthParsed["Content-Length"]
+		print body_length
+
+
+		"""we first store the file"""
+		"""we need to know where"""
+		temp_path=str(consumer_key)+"/"+path[13:]
+		to_path=path[13:]
 
 
 
+		"""creating folder if it does not exist"""
+		try :
+			os.makedirs(os.path.split(temp_path)[0])
+
+		except OSError:
+			pass
 
 
+		"""write readFile in a file"""
+		with open(temp_path,"wb") as f :
+			line = readFile.read(int(body_length))
+			f.write(line)
+		print "f is going to be closed"
+		f.close()
+		print "f closed"
 
+
+		"""encryption of the file"""
+		#TODO
+
+		"""sending the encrypted file to dropbox"""
+		with open(temp_path, "rb") as from_file :
+			print "file opened"
+			dbclient=client_proxy.DropboxClient(sess)
+			print "db session opened"
+			dbclient.put_file(to_path,from_file)
+			print "end transfert"
+
+		"""destroying the temp file"""
+		
 
 
 
