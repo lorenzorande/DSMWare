@@ -12,6 +12,10 @@ from SocketServer import ThreadingMixIn
 import sessionHandler.credentialManager as credentialManager
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+
+    server_version='nginx/1.0.14'#We want to simulate the dropbox server as well as possible
+    protocol_version='HTTP/1.1'
+
     def do_GET(self):
         """The do_GET will universally handle every request (HEAD, POST, PUT, DELETE)."""
         
@@ -32,11 +36,7 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     
     def send_HTTPResponse(self, response):
         """This method will convert most of the HTTPResponse response and send it back to the client"""
-        for header in response.getheaders():
-            if header[0] == 'server':
-                self.server_version='nginx/1.0.14'#We want to simulate the dropbox server as well as possible
         bufferedBody=response.read()
-        bufferedBody = "Caca\r\n"
         print("<-------Status, reason : "+str(response.status)+","+str(response.reason))
         print("<-------Headers : "+str(response.getheaders()))
         print("<-------Body size : "+str(len(bufferedBody)))
@@ -45,9 +45,10 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         for header in response.getheaders():
             self.send_header(header[0],header[1])
         self.end_headers()
-        self.wfile.write(bufferedBody)
-        self.wfile.write("r\n\r\n")
-        self.wfile.close()
+        if bufferedBody != '':
+            self.wfile.write(bufferedBody)
+        self.wfile.write("\r\n\r\n")
+        #self.wfile.close()
         
 
 class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
