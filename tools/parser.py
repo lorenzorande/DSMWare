@@ -72,6 +72,27 @@ def parseHeaders(httpString):
 	parsed["Authorization"] = dict(p_authorization.findall(toparse))
 	return parsed
 
+def parseQuota(s):
+	'''
+	Parse quota string and retrieve quota and normal in a dict
+	'''
+	d = {}
+	p_quota  = re.compile("\"quota\":\s*(?P<quota>\d+)")
+	p_normal = re.compile("\"normal\":\s*(?P<normal>\d+)")
+	m_quota  = p_quota.search(s) 
+	m_normal = p_normal.search(s)
+
+	if m_quota and m_normal:
+		d = dict(m_quota.groupdict() ,**d)
+		d = dict(m_normal.groupdict() ,**d)
+		
+	else :
+		print "Error dans parseQuota"
+
+	return d
+
+
+
 if __name__ == "__main__" :
 	req1 = " method: POST ; host: ('api.dropbox.com', 443) ; path: /1/oauth/request_token ; proto: HTTP/1.1 ; len(body): 168\n  Content-Length: 168\n  Accept-Encoding: identity\n  User-Agent: OfficialDropboxPythonSDK/1.4\n Host: api.dropbox.com\n  Content-type: application/x-www-form-urlencoded\n  Authorization: OAuth realm=\"\", oauth_nonce=\"28356426\", oauth_timestamp=\"1337941763\", oauth_consumer_key=\"92hbateam2dxxbk\", oauth_signature_method=\"PLAINTEXT\", oauth_version=\"1.0\", oauth_signature=\"7315tog2zjsch4l%26\"\n\nBody : oauth_nonce=28356426&oauth_timestamp=1337941763&oauth_consumer_key=92hbateam2dxxbk&oauth_signature_method=PLAINTEXT&oauth_version=1.0&oauth_signature=7315tog2zjsch4l%26\n"
 	req2 = 'code: 200 (OK) ; proto: HTTP/1.1 ; len(body): 1907\n	content-length: 1633\n  cache-control: no-cache\n  Server: nginx/1.0.14\n  Connection: keep-alive\n  pragma: no-cache\n  x-dropbox-metadata: {"revision": 496, "rev": "1f000d55a7d", "thumb_exists": true, "bytes": 12202, "modified": "Wed, 13 Oct 2010 06:14:41 +0000", "client_mtime": "Tue, 07 Sep 2010 15:49:23 +0000", "path": "/Divers/n1407180127_1960.jpg", "is_dir": false, "icon": "page_white_picture", "root": "dropbox", "mime_type": "image/jpeg", "size": "11.9 KB"}\n  Date: Fri, 25 May 2012 10:32:01 GMT\n  Content-Type: image/jpeg\n'
