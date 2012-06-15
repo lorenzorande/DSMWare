@@ -34,6 +34,8 @@ class Client():
 class Server():
     """This class will run the binded socket and create Client objects to handle the requests"""
     
+    clientList = [] #May be used to make sure that there are no more active sockets on shutdown
+
     def __init__(self, cert_file, port = 4444):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock = ssl.wrap_socket(self.sock, certfile = cert_file, server_side = True)
@@ -43,7 +45,7 @@ class Server():
 
     def serve_forever(self):
         while True:
-            client = Client(self.sock.accept()[0])
+            self.clientList.append(Client(self.sock.accept()[0]))
 
 
 if __name__ == '__main__':
@@ -62,4 +64,8 @@ if __name__ == '__main__':
         server.serve_forever()
     except KeyboardInterrupt:
         server.sock.close()
+        for client in server.clientList: #Make sure that we don't leave any client hanging.
+            try: client.sock.close()
+            except Exception, e: continue
         raise
+
