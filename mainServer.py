@@ -64,14 +64,17 @@ if __name__ == "__main__":
     import os
     import sys
     
-    if len(sys.argv) < 2 or len(sys.argv) > 3 or not os.path.exists(sys.argv[1]):
-        sys.exit('Usage: %s <pem> [port number=4443]' % os.path.basename(__file__))
+    try:
+        certificate=sys.argv[1]
+        if len(sys.argv) == 2:
+            host=('localhost', 4443)
+        else:
+            host=('localhost', int(sys.argv[2]))
+    except Exception, e:
+        print(e)
+        sys.exit('Usage: %s <pem> [port number]' % os.path.basename(__file__))
 
-    if len(sys.argv) == 2:
-        host=('localhost', 4443)
-    else:
-        host=('localhost', int(sys.argv[2]))
-    certificate=sys.argv[1]
+
     httpd = ThreadedHTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
