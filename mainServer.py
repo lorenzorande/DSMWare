@@ -35,7 +35,8 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     do_DELETE = do_GET
     
     def send_HTTPResponse(self, response):
-        """This method will convert most of the HTTPResponse response and send it back to the client"""
+        """This method convert most of the HTTPResponse to strings and send them to the client"""
+        #TODO:Find a way to make send the content back to the client
         bufferedBody=response.read()
         print("<-------Status, reason : " + str(response.status) + "," + str(response.reason))
         print("<-------Headers : "+str(response.getheaders()))
@@ -46,11 +47,11 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             self.send_header(header[0],header[1])
         self.end_headers()
         if bufferedBody != '':
-            self.wfile.write(str(len(bufferedBody))+"\r\n")
-            self.wfile.write(bufferedBody.strip()+"\r\n")
+            self.wfile.write(str(len(bufferedBody))+"\r\n")#Send the size of the chunk
+            self.wfile.write(bufferedBody.strip()+"\r\n")#Send the body of the chunk
         else:
-            self.wfile.write("\r\n")
-        self.wfile.write("0\r\n\r\n\r\n")
+            self.wfile.write("\r\n")#Write an empty line if there is no body
+        self.wfile.write("0\r\n\r\n")#Write a chunk of size 0, ending the transmission (supposedly, but the client is left hanging).
         self.wfile.flush()
         self.wfile.close()
         
@@ -74,4 +75,11 @@ if __name__ == "__main__":
     httpd = ThreadedHTTPServer(host, RequestHandler)
     print("Starting the server on "+str(host))
     httpd.socket = ssl.wrap_socket(httpd.socket, certfile=certificate, server_side=True)
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nThe server has shut down.")
+        exit() 
+
+
+

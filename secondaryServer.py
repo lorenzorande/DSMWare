@@ -1,9 +1,10 @@
-#%s" %(sock.getpeername()rse_request!/bin/python
+#!/bin/python
 """This is an attempt to recreate a server with the same interface as mainServer.py, but without using HTTPBaseServer."""
 from __future__ import print_function
 
 import socket
 import ssl
+import time
 
 class Client():
     """This class will handle a socket and interpret its content"""
@@ -36,7 +37,7 @@ class Server():
     
     clientList = [] #May be used to make sure that there are no more active sockets on shutdown
 
-    def __init__(self, cert_file, port = 4444):
+    def __init__(self, cert_file, port = 4443):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock = ssl.wrap_socket(self.sock, certfile = cert_file, server_side = True)
         self.sock.bind( ("localhost",port) )
@@ -44,8 +45,16 @@ class Server():
         print("%%%Server is setup on port " + str(port) + "." )
 
     def serve_forever(self):
-        while True:
-            self.clientList.append(Client(self.sock.accept()[0]))
+        try:
+            while True:
+                self.clientList.append(Client(self.sock.accept()[0]))
+        except KeyboardInterrupt:
+            server.sock.close()
+            print("\nKILL received, quitting gracefuly. Send another KILL to forcequit.")
+            for client in server.clientList: #Make sure that we don't leave any client hanging.
+                try: client.sock.close()
+                except Exception, e: continue
+            exit()
 
 
 if __name__ == '__main__':
@@ -59,13 +68,11 @@ if __name__ == '__main__':
         print("Usage : %s cert_file.pem port"%(sys.argv[0]))
         exit()
 
-    server = Server(cert_file, port)
     try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        server.sock.close()
-        for client in server.clientList: #Make sure that we don't leave any client hanging.
-            try: client.sock.close()
-            except Exception, e: continue
-        raise
+        server = Server(cert_file, port)
+    except Exception, e:
+        print(e)
+        print("The selected port is already in use.")
+        exit()
+    server.serve_forever()
 
