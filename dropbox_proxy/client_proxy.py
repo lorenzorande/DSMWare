@@ -95,7 +95,7 @@ class DropboxClient(object):
         """
         url, params, headers = self.request("/account/info", method='GET')
 
-        return RESTClient.GET(url, headers)
+        return RESTClient.GET(url, headers,raw_response=True)
 
 
     def put_file(self, full_path, file_obj, overwrite=False, parent_rev=None):
