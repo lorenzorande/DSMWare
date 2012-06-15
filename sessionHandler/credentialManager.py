@@ -72,8 +72,7 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 		"""client requested account_info""" 
 
 		dbclient=client_proxy.DropboxClient(sess)
-		url, params, headers = dbclient.request("/account/info", method='GET')
-		response=rest_proxy.RESTClient.GET(url, headers,raw_response=True)
+		response=dbclient.account_info()
 
 		return response
 
@@ -81,8 +80,12 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 
 	if path.split("/")[2] == "files_put" :
 		"""the client has done a put_file"""
-		
+
 		body_length=oauthParsed["Content-Length"]
+
+		"""check remaining free space"""
+		checkRemainingSpace(sess)
+
 
 		"""we first store the file"""
 		"""we need to know where"""
@@ -155,6 +158,17 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 		"""finally send it to the client"""
 
 
+
+def checkRemainingSpace(sess) : 
+	"""function that checks the reamining free space for a dropbox account"""
+	dbclient=client_proxy.DropboxClient(sess)
+	response=dbclient.account_info()
+
+	rep = response.read()
+
+	"""need to parse rep"""
+
+	print response["quota"]
 
 
 def ClientConsumerInfo(consumer_key,idconfigfile) :
