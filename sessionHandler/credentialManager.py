@@ -4,6 +4,7 @@ import oauth.oauth as oauth
 
 import dropbox_proxy.client_proxy as client_proxy, dropbox_proxy.rest_proxy as rest_proxy, dropbox_proxy.session_proxy as session_proxy
 
+import processFile.process as process
 
 def ClientHandler(url,clientHttpHeader, readFile) :
 	"""handler handling requests from a client"""
@@ -62,8 +63,6 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 	if path.split("/")[2] == "account" :
 		"""client requested account_info""" 
 
-		print "account info requested"
-
 		dbclient=client_proxy.DropboxClient(sess)
 		url, params, headers = dbclient.request("/account/info", method='GET')
 		response=rest_proxy.RESTClient.GET(url, headers,raw_response=True)
@@ -98,24 +97,23 @@ def ClientHandler(url,clientHttpHeader, readFile) :
 		with open(temp_path,"wb") as f :
 			line = readFile.read(int(body_length))
 			f.write(line)
-		print "f is going to be closed"
 		f.close()
-		print "f closed"
 
 
 		"""encryption of the file"""
-		#TODO
+		process.putFile(temp_path) 
 
 		"""sending the encrypted file to dropbox"""
 		with open(temp_path, "rb") as from_file :
-			print "file opened"
 			dbclient=client_proxy.DropboxClient(sess)
-			print "db session opened"
 			response=dbclient.put_file(to_path,from_file)
-			print "end transfert"
 
 		"""destroying the temp file"""
-		#TODO
+		try :
+			os.remove(temp_path)
+
+		except OSError:
+			pass
 
 		return response
 
