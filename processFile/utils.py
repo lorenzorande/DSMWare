@@ -12,12 +12,12 @@ from string import maketrans
 
 def getContent(fname):
 	#Read content
-	with f = open(fname, 'r')
+	with open(fname, 'r') as f :
 		content = f.read()
 	return content
 
 def setContent(fname, content):
-	with f = open(fname, 'w')
+	with open(fname, 'w') as f :
 		f.write(content)
 
 
