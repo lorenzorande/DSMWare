@@ -164,11 +164,24 @@ def checkRemainingSpace(sess) :
 	dbclient=client_proxy.DropboxClient(sess)
 	response=dbclient.account_info()
 
-	rep = response.read()
+	rep = str(response.read())
+	quota=parser.parseQuota(rep)
 
-	"""need to parse rep"""
+	int_quota=int(quota["quota"])
+	int_used=int(quota["normal"])
 
-	print response["quota"]
+	div=int_used/int_quota
+
+	print ""
+	print "______________________________________________"
+	if div > 0.90 :
+		print "BE CAREFUL DROPBOX ALMOST FULL"
+		
+
+	else :
+		print "DROPBOX FREESPACE OK"
+	print "______________________________________________"
+	print ""
 
 
 def ClientConsumerInfo(consumer_key,idconfigfile) :
